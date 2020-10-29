@@ -42,6 +42,7 @@ class CursoController extends Controller
     {
         $curso = CursoService::store($request->all());
         return redirect()->route('cursos.index', $curso->id);
+
     }
 
     /**

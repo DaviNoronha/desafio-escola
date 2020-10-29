@@ -14,9 +14,11 @@
 <body>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
         <div class="container">
-            <a href="{{ url('/cursos') }}" class="navbar-brand">Desafio<b>Escola</b></a>
+            <a href="{{ url('/') }}" class="navbar-brand">Desafio<b>Escola</b></a>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="{{ route('cursos.create')}}" class="nav-link"> Novo Curso</a></li>
+                <li class="nav-item"><a href="{{ route('cursos.index')}}" class="nav-link"> Cursos</a></li>
+                <li class="nav-item"><a href="{{ route('cursos.index')}}" class="nav-link"> Usuários</a></li>
+                <li class="nav-item"><a href="{{ route('professores.index')}}" class="nav-link"> Professores</a></li>
             </ul>
         </div>
     </nav>

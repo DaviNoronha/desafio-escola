@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
-use App\Services\CursoService;
 use Illuminate\Http\Request;
 
 class CatalogoController extends Controller
 {
     public function index()
     {
-        return view('catalogo', [
-            'cursos' => CursoService::getAll()
-        ]);
+        $cursos = Curso::paginate(4);
+        return view('catalogo', compact('cursos'));
     }
 
+    public function curso(Curso $curso)
+    {
+        return view('cursos.show', compact('curso'));
+    }
 }

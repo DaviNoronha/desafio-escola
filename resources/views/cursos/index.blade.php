@@ -1,11 +1,11 @@
 @extends('estilo.master')
 
-@section('title', 'Catálogo de Cursos')
+@section('title', 'Tabela de Cursos')
 
 @section('content')
 <div class="card mt-4">
     <div class="card-header">
-        <h4>Catálogo de Cursos</h4>
+        <h4>Tabela de Cursos</h4>
     </div>
 
     <div class="card-body">
@@ -23,8 +23,22 @@
                         <td class="text-center">Joao da Silva</td>
                         <td class="text-center">R$ {{$curso->valor}}</td>
                         <td class="text-center">
-                            <a href="{{ route('cursos.show', $curso->id) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                            <a href="{{ route('cursos.edit', $curso->id) }}" class="btn btn-success"><i class="fas fa-pen-fancy"></i></a>
+                            <nav class="navbar navbar-expand ml-5">
+                                <ul class="navbar-nav ml-5">
+                                    <li class="nav-item mr-2"><a href="{{ route('cursos.show', $curso->id) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a></li>
+                                    <li class="nav-item mr-2"><a href="{{ route('cursos.edit', $curso->id) }}" class="btn btn-success"><i class="fas fa-pen-fancy"></i></a></li>
+                                    <li class="nav-item mr-4">
+                                        <form method="POST" action="{{ route('cursos.destroy', $curso->id) }}">
+                                            @csrf
+                                            @method('DELETE') 
+                                    
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </nav>
                         </td>
                     </tr>
                 @endforeach

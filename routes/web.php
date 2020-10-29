@@ -20,3 +20,7 @@ Route::resource('cursos', 'CursoController');
 Route::resource('professores', 'ProfessorController');
 
 Route::resource('alunos', 'AlunoController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

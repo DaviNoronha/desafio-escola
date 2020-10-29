@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Professor;
+use App\Services\ProfessorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class ProfessorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return view('professores.index', [
+            'professores' => ProfessorService::getAll()          
+        ]);
     }
 
     /**
@@ -24,7 +25,7 @@ class ProfessorController extends Controller
      */
     public function create()
     {
-        //
+        return view('professores.create');
     }
 
     /**
@@ -35,7 +36,8 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $professor = ProfessorService::store($request->all());
+        return redirect()->route('professores.index', $professor->id);
     }
 
     /**
@@ -46,7 +48,13 @@ class ProfessorController extends Controller
      */
     public function show(Professor $professor)
     {
-        //
+        if ($professor) {
+            return view('professores.show', [
+                'professor' => $professor
+            ]);
+        } else {
+            return redirect()->action('ProfessorController@index');
+        }
     }
 
     /**
@@ -57,7 +65,9 @@ class ProfessorController extends Controller
      */
     public function edit(Professor $professor)
     {
-        //
+        return view('professores.edit', [
+            'professor' => $professor
+        ]);
     }
 
     /**
@@ -69,7 +79,8 @@ class ProfessorController extends Controller
      */
     public function update(Request $request, Professor $professor)
     {
-        //
+        ProfessorService::update($request->all(), $professor);
+        return redirect()->route('professores.index', $professor->id);
     }
 
     /**
@@ -80,6 +91,16 @@ class ProfessorController extends Controller
      */
     public function destroy(Professor $professor)
     {
-        //
+        try {
+            ProfessorService::destroy($professor);
+            return redirect()->route('professores.index');
+        } catch (Throwable $th) {
+            return redirect()->route('professores.index');
+            Log::error([
+                'message' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+            ]);
+        }
     }
 }

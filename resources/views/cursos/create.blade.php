@@ -16,21 +16,25 @@
                     <div class="form-group">
                         <label for="titulo">Título do Curso: </label>
                         <input type="text" class="form-control @error('titulo') is-invalid @enderror"  id="titulo" name="titulo" value="{{ old('titulo')}}">
+                        @error('titulo')<div class="invalid-feedback"> {{ $message }}</div>@enderror
                     </div>
 
                     <div class="form-group">
                         <label for="valor">Valor do curso: </label>
                         <input type="text" class="form-control @error('valor') is-invalid @enderror"  id="valor" name="valor" value="{{ old('valor')}}">
+                        @error('valor')<div class="invalid-feedback"> {{ $message }}</div>@enderror
                     </div>
 
                     <div class="form-group">
                         <label for="imagem">Logo do curso: </label>
                         <input type="file" class="form-control @error('imagem') is-invalid @enderror" id="imagem" name="imagem" value="{{ old('imagem')}}">
+                        @error('imagem')<div class="invalid-feedback"> {{ $message }}</div>@enderror
                     </div>
 
                     <div class="form-group">
                         <label for="descricao">Descrição do Curso: </label>
                         <textarea name="descricao" id="descricao" cols="30" rows="10" class="form-control" value="{{ old('descricao')}}"></textarea>
+                        @error('descricao')<div class="invalid-feedback"> {{ $message }}</div>@enderror
                     </div>
                     
                     <a href="{{route('cursos.index')}}" class="btn btn-success"><i class="fas fa-arrow-alt-circle-left"></i> Voltar</a>

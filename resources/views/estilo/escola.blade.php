@@ -13,14 +13,13 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark"> 
+    <nav class="navbar navbar-expand navbar-dark bg-dark"> 
         <div class="container">
-            <a href="{{ url('/cursos') }}" class="navbar-brand">Desafio<b>Escola</b></a>
+            <a href="{{ url('/') }}" class="navbar-brand">Desafio<b>Escola</b></a>
+            <a href="{{ url('/cursos') }}" class="navbar-brand">Administrar Cursos</a>
             <ul class="navbar-nav ml-auto">
-                <a class="navbar-brand" href="/cursos">Login</a>
-            </ul>
-            <ul class="navbar-nav ml-2">
-                <a class="navbar-brand" href="">Registrar</a>
+                <li class="nav-item"><a href="{{ route('login')}}" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="{{ route('register')}}" class="nav-link">Registrar</a></li>
             </ul>
         </div>
     </nav>
