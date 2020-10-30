@@ -16,5 +16,15 @@ class PerfilSeeder extends Seeder
             'nome' => 'master',
             'descricao' => 'Master',
         ]);
+
+        Perfil::create([
+            'nome' => 'aluno',
+            'descricao' => 'Aluno',
+        ]);
+
+        Perfil::create([
+            'nome' => 'administrador',
+            'descricao' => 'Administrador',
+        ]);
     }
 }

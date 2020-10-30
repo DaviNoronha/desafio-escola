@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         $perfil = Perfil::where('nome', 'master')->first();
 
         User::create([
-            'name' => 'Master',
+            'nome' => 'Master',
             'email' => 'master@email.com',
             'perfil_id' => $perfil->id,
             'password' => bcrypt('12345678')

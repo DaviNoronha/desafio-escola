@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class ProfessorService {
+class ProfessorService 
+{
 
     public static function getAll()
     {
@@ -16,6 +17,19 @@ class ProfessorService {
         } catch (Throwable $th) {
             return redirect()->route('professores.index');
                 Log::error([
+                'message' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+            ]);
+        }
+    }
+
+    public static function getById(int $id)
+    {
+        try {
+            return Professor::find($id);
+        } catch (Throwable $th) {
+            Log::error([
                 'message' => $th->getMessage(),
                 'linha' => $th->getLine(),
                 'arquivo' => $th->getFile()

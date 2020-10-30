@@ -13,14 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'CatalogoController@index'); 
+Route::get('/catalogo', 'CatalogoController@index')->name('catalogo'); 
 
-Route::resource('cursos', 'CursoController');
-
-Route::resource('professores', 'ProfessorController');
-
-Route::resource('alunos', 'AlunoController');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('users', 'UserController');
+    Route::get('dados', 'UserController@dados')->name('users.dados');
+    Route::post('salvar-dados', 'UserController@salvarDados')->name('users.salvarDados');
+    Route::resource('cursos', 'CursoController');
+    Route::resource('professores', 'ProfessorController');
+    Route::get('alunos/matricula/{aluno}', 'AlunoController@matricula')->name('alunos.matricula');
+});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+

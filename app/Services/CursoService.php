@@ -3,18 +3,20 @@
 namespace App\Services;
 
 use App\Models\Curso;
+use App\Models\Professor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class CursoService {
+class CursoService 
+{
 
     public static function getAll()
     {
         try {
             return Curso::all();
         } catch (Throwable $th) {
-            return redirect()->route('cursos.index');
                 Log::error([
                 'message' => $th->getMessage(),
                 'linha' => $th->getLine(),
@@ -23,9 +25,11 @@ class CursoService {
         }
     }
 
-    public static function store(array $dados)
+    public static function store(array $dados, Request $request)
     {
         try {
+            $file = $request->file('imagem');
+            $dados['imagem'] = substr($file->store('public'), '7');
             return Curso::create($dados);
         } catch (Throwable $th) {
             Log::error([

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
+use App\Http\Requests\CursoRequest;
+use App\Models\Professor;
 use App\Services\CursoService;
+use App\Services\ProfessorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -17,9 +21,19 @@ class CursoController extends Controller
      */
     public function index()
     {
-        return view('cursos.index', [
-            'cursos' => CursoService::getAll()          
-        ]);
+        try {
+            return view('cursos.index', [
+                'cursos' => CursoService::getAll()          
+            ]);
+        } catch (Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+
+            ]);
+            return redirect()->view('home');
+        }
     }
 
     /**
@@ -29,7 +43,19 @@ class CursoController extends Controller
      */
     public function create()
     {
-        return view('cursos.create');
+        try {
+            return view('cursos.create', [
+                'professores' => ProfessorService::getAll()
+            ]);
+        } catch (Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+
+            ]);
+            return redirect()->route('cursos.index');
+        }
     }
 
     /**
@@ -38,11 +64,19 @@ class CursoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CursoRequest $request)
     {
-        $curso = CursoService::store($request->all());
-        return redirect()->route('cursos.index', $curso->id);
-
+        try {
+            $curso = CursoService::store($request->all(), $request);
+            return redirect()->route('cursos.index', $curso->id);
+        } catch (Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+            ]);
+            return redirect()->route('cursos.create');
+        }
     }
 
     /**
@@ -53,12 +87,21 @@ class CursoController extends Controller
      */
     public function show(Curso $curso)
     {
-        if ($curso) {
-            return view('cursos.show', [
-                'curso' => $curso
+        try {
+            if ($curso) {
+                return view('cursos.show', [
+                    'curso' => $curso
+                ]);
+            } else {
+                return redirect()->action('CursoController@index');
+            }
+        } catch (Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
             ]);
-        } else {
-            return redirect()->action('CursoController@index');
+            return redirect()->route('cursos.index');
         }
     }
 
@@ -70,9 +113,18 @@ class CursoController extends Controller
      */
     public function edit(Curso $curso)
     {
-        return view('cursos.edit', [
-            'curso' => $curso
-        ]);
+        try {
+            return view('cursos.edit', [
+                'curso' => $curso
+            ]);
+        } catch (Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+            ]);
+            return redirect()->route('cursos.index');
+        }
     }
 
     /**
@@ -82,10 +134,19 @@ class CursoController extends Controller
      * @param  \App\Models\Curso  $curso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Curso $curso)
+    public function update(CursoRequest $request, Curso $curso)
     {
-        CursoService::update($request->all(), $curso);
-        return redirect()->route('cursos.index', $curso->id);
+        try {
+            CursoService::update($request->all(), $curso);
+            return redirect()->route('cursos.index', $curso->id);
+        } catch (Throwable $th) {
+            Log::error([
+                'message' => $th->getMessage(),
+                'linha' => $th->getLine(),
+                'arquivo' => $th->getFile()
+            ]);
+            return redirect()->route('cursos.edit');
+        }
     }
 
     /**
@@ -100,12 +161,12 @@ class CursoController extends Controller
             CursoService::destroy($curso);
             return redirect()->route('cursos.index');
         } catch (Throwable $th) {
-            return redirect()->route('cursos.index');
             Log::error([
                 'message' => $th->getMessage(),
                 'linha' => $th->getLine(),
                 'arquivo' => $th->getFile()
             ]);
+            return redirect()->route('cursos.index');
         }
     }
 }

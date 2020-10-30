@@ -3,10 +3,26 @@
 @section('title', 'Cursos')
 
 @section('content')
-    <h2>{{$curso->titulo}}</h2>
-    <h6>Professor: João da Silva</h6>
-    <p>R$ {{$curso->valor}}</p>
-    <p>{{$curso->descricao}}</p>
+    <div class="d-flex justify-content-center mt-3">
+        <div class="card w-75 p-1 mb-3">
+            <div class="w-100" style="border: 1px solid #EEE;border-radius: 4px;height: 320px; background-size:cover; background-position:center; background-image: url('{{ env('APP_URL') }}/storage/{{ $curso->imagem }}')"></div>
+            
+            <div class="col-12">
+                <h2>{{$curso->titulo}}</h2>
+            </div>
 
-    <a href="/">Matricular</a>
+            <div class="col-12">
+                <h6>Professor: João da Silva</h6>
+                <p>R$ {{$curso->valor}}</p>
+            </div>
+
+            <div class="col-12 mt-4">
+                <p>{{$curso->descricao}}</p>
+            </div>
+
+            <div class="col-12">
+                <a href="/" class="btn btn-primary">Fazer matrícula</a>
+            </div>
+        </div>
+    </div>
 @endsection

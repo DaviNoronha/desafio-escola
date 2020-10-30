@@ -15,12 +15,14 @@ class CreateAlunosTable extends Migration
     {
         Schema::create('alunos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('email');
-            $table->string('telefone');
-            $table->string('cpf');
-            $table->string('cep');
+            $table->unsignedBigInteger('user_id');
+            $table->date('data_nascimento')->nullable();
+            $table->text('biografia')->nullable();
+            $table->string('telefone')->nullable();
+            $table->string('cpf')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
