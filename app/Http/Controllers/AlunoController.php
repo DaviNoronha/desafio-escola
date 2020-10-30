@@ -5,18 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Services\CursoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class AlunoController extends Controller
 {
-    public function matricula(Aluno $aluno)
-    {
-        return $this->cursos()->attach($aluno, [
-            'cursos' => CursoService::getAll()
-        ]);
-    }
 
-    public function salvarMatricula()
-    {
-        
-    }
 }

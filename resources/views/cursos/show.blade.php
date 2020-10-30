@@ -22,7 +22,7 @@
             @if (auth()->user()->perfil->nome == 'aluno')
             
                 <div class="col-12">
-                    <a href="/" class="btn btn-primary">Fazer matrícula</a>
+                    <a href="#" class="btn btn-primary">Fazer matrícula</a>
                 </div>
             @endif
         </div>

@@ -169,7 +169,7 @@ class UserController extends Controller
     {
         try {
             $user = auth()->user();
-            UserService::update($request->all(), auth()->user());
+            UserService::update($request->all(), auth()->$user);
             return redirect()->route('users.dados');
         } catch (Throwable $th) {
             Log::error([
