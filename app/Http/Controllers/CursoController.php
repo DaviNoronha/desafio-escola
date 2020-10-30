@@ -115,7 +115,8 @@ class CursoController extends Controller
     {
         try {
             return view('cursos.edit', [
-                'curso' => $curso
+                'curso' => $curso,
+                'professores' => ProfessorService::getAll()
             ]);
         } catch (Throwable $th) {
             Log::error([

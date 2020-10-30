@@ -5,7 +5,7 @@
 @section('content')
     <div class="card mt-4">
         <div class="card-header">
-            <h4>Editar Usuário</h4>
+            <h4>Dados do Usuário</h4>
         </div>
 
         <div class="card-body">

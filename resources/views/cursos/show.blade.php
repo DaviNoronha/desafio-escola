@@ -12,17 +12,19 @@
             </div>
 
             <div class="col-12">
-                <h6>Professor: João da Silva</h6>
+                <h6>{{ $curso->professor->nome }}</h6>
                 <p>R$ {{$curso->valor}}</p>
             </div>
 
             <div class="col-12 mt-4">
                 <p>{{$curso->descricao}}</p>
             </div>
-
-            <div class="col-12">
-                <a href="/" class="btn btn-primary">Fazer matrícula</a>
-            </div>
+            @if (auth()->user()->perfil->nome == 'aluno')
+            
+                <div class="col-12">
+                    <a href="/" class="btn btn-primary">Fazer matrícula</a>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

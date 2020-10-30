@@ -19,6 +19,16 @@
                         <input type="text" class="form-control @error('titulo') is-invalid @enderror"  id="titulo" name="titulo" value="{{$curso->titulo}}">
                         @error('titulo')<div class="invalid-feedback"> {{ $message }}</div>@enderror
                     </div>
+                    
+                    <div class="form-group col-12">
+                        <label for="professor_id">Professor:</label>
+                        <select class="form-control" id="professor_id" name="professor_id">
+                            <option>Selecione um professor</option>
+                            @foreach($professores as $professor)
+                                <option value="{{ $professor->id }}">{{ $professor->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <div class="form-group col-md-4">
                         <label for="valor">Valor do curso: </label>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfessorRequest;
 use App\Models\Professor;
+use App\Services\CursoService;
 use App\Services\ProfessorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -61,6 +62,7 @@ class ProfessorController extends Controller
         try {
             if ($id) {
                 return view('professores.show', [
+                    'curso' => CursoService::getAll(),
                     'professor' => ProfessorService::getById($id)
                 ]);
             } else {
@@ -104,7 +106,7 @@ class ProfessorController extends Controller
                 'linha' => $th->getLine(),
                 'arquivo' => $th->getFile()
             ]);
-            return redirect()->route('cursos.edit');
+            return redirect()->route('professores.edit');
         }
     }
 

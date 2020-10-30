@@ -12,7 +12,7 @@
                 <p>{{$professor->email}}</p>
             </div>
             <div class="col-12">
-                <p>Cursos: Laravel Developer, Linguagem PHP </p>
+            <p>{{ $professor->curso->titulo }}</p>
             </div>
         </div>
     </div>

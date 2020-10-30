@@ -10,11 +10,13 @@ class AlunoController extends Controller
 {
     public function matricula(Aluno $aluno)
     {
-
+        return $this->cursos()->attach($aluno, [
+            'cursos' => CursoService::getAll()
+        ]);
     }
 
     public function salvarMatricula()
     {
-
+        
     }
 }

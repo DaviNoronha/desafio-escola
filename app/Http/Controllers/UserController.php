@@ -177,6 +177,7 @@ class UserController extends Controller
                 'linha' => $th->getLine(),
                 'arquivo' => $th->getFile()
             ]);
+            return redirect()->back()->withInputs();
         }
     }
 }
