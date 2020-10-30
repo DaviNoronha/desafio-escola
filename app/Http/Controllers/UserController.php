@@ -165,12 +165,12 @@ class UserController extends Controller
         }
     }
 
-    public function salvarDados()
+    public function salvarDados(UserRequest $request)
     {
         try {
             $user = auth()->user();
             UserService::update($request->all(), auth()->user());
-            return redirect()->route('users.dados', $user->id);
+            return redirect()->route('users.dados');
         } catch (Throwable $th) {
             Log::error([
                 'message' => $th->getMessage(),
